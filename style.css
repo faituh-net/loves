@@ -1,0 +1,59 @@
+ @font-face {
+    font-family: Griffiths;
+    src: url("Griffiths.otf") format("opentype");
+ }
+
+ p {
+    font-family: Griffiths, serif;
+    font-size: 20px;
+    color: #080808;
+ }
+
+ h1 {
+    color: #080808;
+ }
+
+ .popup-card,
+ .popup-card p {
+    font-family: Griffiths, serif;
+ }
+
+ .popup-image {
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    margin: 10px auto 6px;
+    border-radius: 16px;
+ }
+
+ .popup-caption {
+    text-align: center;
+    font-size: 14px;
+    color: #6b4b63;
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-style: italic;
+ }
+ 
+ .popup {
+margin: 70px auto; 
+width: 500px;
+position: relative; 
+z-index: 999;
+background: transparent;
+ }
+.overlay {
+position: absolute;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+visibility: hidden;
+opacity: 0;
+background: transparent;
+z-index: 999;
+}
+.overlay:target {
+visibility: visible;
+opacity: 1;
+}

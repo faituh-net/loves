@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xoxo,faith</title>
+        <link rel="icon" href="chiikawa.png" type="image/x-icon">
+     <link rel="stylesheet" href="style.css">
+     <style>
+      body{
+        background-image:url(sheldoncooperudog.png);
+        min-height:100vh;
+        background-size:cover;
+        background-position:center;
+        background-attachment:fixed;
+        overflow:hidden;
+      }
+     </style>
+     <style type="text/css">
+      *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+      }
+      body{
+        width:100%;
+        min-height:100vh;
+        background-image:url(sheldoncooperudog.png);
+        background-size:cover;
+        background-position:center;
+        background-attachment:fixed;
+        overflow:hidden;
+        position:relative;
+      }
+      .draggable-item,
+      #btn{
+        position:absolute;
+        top: 8px;
+        left: -5px;
+        background:none;
+        border:none;
+        padding:0;
+        cursor:grab;
+        touch-action:none;
+        user-select:none;
+      }
+      .draggable-item:active,
+      #btn:active{
+        cursor:grabbing;
+      }
+      .draggable-item img,
+      #btn img{
+        width: 300px;
+        height: 300px;
+        left: 2px;
+        display:block;
+      }
+      .popup-overlay {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: rgba(5, 8, 18, 0.78);
+        z-index: 999;
+        padding: 18px;
+      }
+      .popup-overlay[hidden] {
+        display: none;
+      }
+      .popup-card {
+        position: relative;
+        width: min(92vw, 420px);
+        max-height: 90vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        border-radius: 24px;
+        background: linear-gradient(145deg, #ffffff, #ffffff);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+        padding: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: #fff8fb;
+      }
+      .popup-close {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        border: none;
+        background: #aa1515;
+        color: #fff;
+        border-radius: 999px;
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+      .popup-image {
+        width: 100%;
+        display: block;
+        border-radius: 18px;
+      }
+      .flip-card {
+        width: 460px;
+        height: 460px;
+        display: block;
+        perspective: 1200px;
+        background: transparent;
+        z-index: 10;
+      }
+      .flip-card-inner {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: transform 0.65s ease;
+      }
+      .flip-card.flipped .flip-card-inner {
+        transform: rotateY(180deg);
+      }
+      .flip-card-face {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 24px;
+        backface-visibility: hidden;
+        overflow: visible;
+        background: transparent;
+        box-shadow: none;
+      }
+      .flip-card-front img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        border-radius: 22px;
+      }
+      .flip-card-back {
+        transform: rotateY(180deg);
+        flex-direction: column;
+        gap: 8px;
+        padding: 0;
+        text-align: center;
+        background: transparent;
+        color: #fff;
+      }
+      .flip-card-back strong {
+        font-size: 1.05rem;
+      }
+      .flip-card-back span {
+        font-size: 0.95rem;
+        line-height: 1.35;
+      }
+      .flip-card-label {
+        position: absolute;
+        left: 50%;
+        bottom: 10px;
+        transform: translateX(-50%);
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.64);
+        color: #fff;
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+     </style>
+  </head>
+  <body>
+  <audio id="bgMusic" src="In Love - Tomodachi Life OST.mp3" loop preload="auto"></audio>
+
+  <button id="btn" class="draggable-item" type="button" aria-label="Play notification sound" data-audio="true" data-popup="true">
+    <img src="1-removebg-preview.png" alt="Notification icon" draggable="false">
+  </button>
+
+  <button class="draggable-item" type="button" aria-label="Second draggable image" style="top: -40px; left: 170px;" data-audio="false">
+    <img src="2-removebg-preview.png" alt="Another draggable image" draggable="false" style="width: 310px; height: 310px;">
+  </button>
+
+ <button class="draggable-item" type="button" aria-label="Eighth draggable image" style="top: 300px; left: 60px; transform: rotate(90deg); z-index: 6;" data-audio="false">
+    <img src="8-removebg-preview.png" alt="Eighth draggable image" draggable="false" style="width: 400px; height: 400px;">
+  </button>
+
+   <button class="draggable-item" type="button" aria-label="Third draggable image" style="top: 250px; left: 40px;" data-audio="false">
+    <img src="3-removebg-preview.png" alt="Third draggable image" draggable="false" style="width: 430px; height: 430px;">
+  </button>
+
+    <button class="draggable-item" type="button" aria-label="Ninth draggable image" style="top: 250px; left: 200px; transform: rotate(5deg); z-index: 1;" data-audio="false">
+    <img src="9-removebg-preview.png" alt="Ninth draggable image" draggable="false" style="width: 400px; height: 400px;">
+  </button>
+
+ <button class="draggable-item flip-card" type="button" aria-label="Fifth draggable image" style="top: 160px; left: 560px; z-index: 5;" data-audio="false" data-flip="true">
+    <span class="flip-card-inner">
+      <span class="flip-card-face flip-card-front">
+        <img src="5 (2).png" alt="Fifth draggable image" draggable="false">
+      </span>
+      <span class="flip-card-face flip-card-back">
+        <img src="6.png" alt="Instructions side" draggable="false" style="width: 100%; height: 100%; object-fit: contain;">
+      </span>
+    </span>
+  </button>
+
+   <button class="draggable-item" type="button" aria-label="sixth draggable image" style="top: 160px; left: 350px; transform: rotate(-6deg); z-index: 5;" data-audio="false">
+    <img src="unnamed.jpg" alt="Sixth draggable image" draggable="false" style="width: 320px; height: 320px; object-fit: contain;">
+  </button>
+
+<button class="draggable-item" type="button" aria-label="seventh draggable image" style="top: 280px; left: 1140px; transform: rotate(6deg);" data-audio="false">
+    <img src="photobooth.png" alt="Seventh draggable image" draggable="false" style="width: 320px; height: 320px; object-fit: contain;">
+  </button>
+
+  <button class="draggable-item" type="button" aria-label="tenth draggable image" style="top: 160px; left: 60px; transform: rotate(-11.4deg);" data-audio="false">
+    <img src="11.png" alt="Another draggable image" draggable="false" style="width: 200px; height: 200px;">
+  </button>
+
+  <button class="draggable-item" type="button" aria-label="eleventh draggable image" style="top: 160px; left: 250px; transform: rotate(-11.4deg);" data-audio="false">
+    <img src="12.png" alt="Another draggable image" draggable="false" style="width: 200px; height: 200px;">
+  </button>
+
+  <button class="draggable-item" type="button" aria-label="twelfth draggable image" style="top: 100px; left: 205px; transform: rotate(-11.4deg);" data-audio="false">
+    <img src="13.png" alt="Another draggable image" draggable="false" style="width: 200px; height: 200px;">
+  </button>
+
+  <button class="draggable-item" type="button" aria-label="thirteenth draggable image" style="top: 100px; left: 300px; transform: rotate(-11.4deg);" data-audio="false">
+    <img src="14.png" alt="Another draggable image" draggable="false" style="width: 200px; height: 200px;">
+  </button>
+
+   <button class="draggable-item" type="button" aria-label="Fourth draggable image" style="top: 70px; left: 375px;" data-audio="false">
+    <img src="4-removebg-preview.png" alt="Fourth draggable image" draggable="false" style="width: 100px; height: 100px;">
+  </button>
+
+   <button class="draggable-item" type="button" aria-label="fourteenth draggable image" style="top: 180px; left: 150px; transform: rotate(-11.4deg);" data-audio="false">
+    <img src="15.png" alt="Another draggable image" draggable="false" style="width: 150px; height: 150px;">
+  </button>
+
+  <button class="draggable-item" type="button" aria-label="fifteenth draggable image" style="top: 440px; left: 150px; transform: rotate(-10deg); z-index: 6;" data-audio="false">
+    <img src="16.png" alt="Fifteenth draggable image" draggable="false" style="width: 230px; height: 230px;">
+  </button>
+
+    <button class="draggable-item" type="button" aria-label="sixteenth draggable image" style="top: 300px; left: 300px; transform: rotate(0deg); z-index: 6;" data-audio="false">
+    <img src="17.png" alt="Sixteenth draggable image" draggable="false" style="width: 150px; height: 150px;">
+  </button>
+
+    <button class="draggable-item" type="button" aria-label="seventeenth draggable image" style="top: 410px; left: 350px; transform: rotate(-15deg); z-index: 6;" data-audio="false">
+    <img src="18.png" alt="seventeenth draggable image" draggable="false" style="width: 200px; height: 200px;">
+  </button>
+
+  <div id="popupOverlay" class="popup-overlay" hidden>
+    <div class="popup-card" role="dialog" aria-modal="true" aria-label="First image popup">
+      <button id="closePopup" class="popup-close" type="button" aria-label="Close popup">×</button>
+      <h1>Dear Benson,</h1><br>
+      <p>I know this gift  isn't much and it was/is given REALLY, REALLY, REALLY late, which I apologize for. Coding is not easy, and balancing time is not easy, especially because of TMA, and other things but at least I was able to finish it :3<br><br>
+Moving on, Happy monthsary, my love! Really surprising how far we’ve come despite the obstacles we’ve faced emotionally or physically in whatever situation, or thoughts that crashed into our minds, it doesn’t stop us from loving, supporting, and caring for each other!<br><br>
+6 months in, galing no? Sobrang galing, sofer<br><br>
+With 6 months in, we have had a lot of best moments together in text, calls, and in real life, even though we barely do things together other than mostly text, which often makes me overthink a lot because syempre, in text, you barely get the tone that the person is trying to imitate/resemble. Sometimes, I overthink in text that you’re dry and you're bored/tired with me being your girlfriend, but with the help of the reassurance you gave me before or recently has helped me understand that you have not, and you continuously put your efforts in loving me, which I DO appreciate and I am thankful for it. <br><br>
+
+I know, me being your girlfriend must be challenging, especially because I'm so busy, abusive, whatever you want to call me or describe me, but that does not mean anything, and hopefully you don't think that, just because I'm busy, it doesn’t mean I'm trying to avoid you and i know you understand that because you are such " relationship an understanding person that i fully trust and love.<br><br>
+
+
+Being your girlfriend or overall being in a relationship with you makes me happy and feels like a blessing to me. I genuinely feel lucky to have you as my boyfriend, despite having a “hate/love” friendship before and being “frenemies,” buttttttt let’s ignore that since it's all in the past, and focus more on the present :3<br><br>
+
+
+Benson, I truly love you, and I truly am thankful and glad to be yours. I’ve never really expected to be in a relationship with you cause i always thought that I would continue having the “love/hate” friendship with you, which was honestly annoying to me (sorry, ha), but I'm glad that it has changed, from being in a “love/hate” friendship into a fully loving relationship!!<br><br>
+
+
+My love, my sweetie, my cutie bunso, my bebe, I love you so much. Thank you for being with me, and I hope you continue to be with me in this relationship that I don't want to end because I love it so much. I love you and happy monthsary again ! ( ⸝⸝´꒳`⸝⸝) <br><br>
+- xoxo and love, Faith
+</p>
+      <img src="10.png" alt="Small bouquet" class="popup-image" />
+      <p class="popup-caption">aww a small bouquet js for you !</p>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    const audio = new Audio("yougotmail.mp3");
+    const backgroundMusic = document.getElementById("bgMusic");
+    const popupOverlay = document.getElementById("popupOverlay");
+    const closePopup = document.getElementById("closePopup");
+    const draggableItems = document.querySelectorAll(".draggable-item");
+
+    backgroundMusic.volume = 0.20;
+
+    function openPopup() {
+      popupOverlay.hidden = false;
+    }
+
+    function closePopupModal() {
+      popupOverlay.hidden = true;
+    }
+
+    closePopup.addEventListener("click", closePopupModal);
+    popupOverlay.addEventListener("click", (event) => {
+      if (event.target === popupOverlay) {
+        closePopupModal();
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closePopupModal();
+      }
+    });
+
+    function startBackgroundMusic() {
+      backgroundMusic.play().catch((error) => {
+        console.error("Background music could not play:", error);
+      });
+    }
+
+    function playAudio() {
+      audio.currentTime = 0;
+      audio.play().catch((error) => {
+        console.error("Audio could not play:", error);
+      });
+    }
+
+    draggableItems.forEach((item) => {
+      let dragActive = false;
+      let dragStarted = false;
+      let offsetX = 0;
+      let offsetY = 0;
+      let startX = 0;
+      let startY = 0;
+
+      function startDrag(event) {
+        if (event.button !== 0) return;
+
+        const rect = item.getBoundingClientRect();
+        offsetX = event.clientX - rect.left;
+        offsetY = event.clientY - rect.top;
+        startX = event.clientX;
+        startY = event.clientY;
+        dragActive = true;
+        dragStarted = false;
+        item.setPointerCapture(event.pointerId);
+      }
+
+      function moveDrag(event) {
+        if (!dragActive) return;
+
+        const dx = event.clientX - startX;
+        const dy = event.clientY - startY;
+
+        if (!dragStarted && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) {
+          dragStarted = true;
+        }
+
+        if (dragStarted) {
+          item.style.left = `${event.clientX - offsetX}px`;
+          item.style.top = `${event.clientY - offsetY}px`;
+        }
+      }
+
+      function endDrag(event) {
+        if (!dragActive) return;
+
+        dragActive = false;
+
+        if (item.hasPointerCapture(event.pointerId)) {
+          item.releasePointerCapture(event.pointerId);
+        }
+
+        if (!dragStarted && item.dataset.popup === "true") {
+          openPopup();
+        }
+
+        if (!dragStarted && item.dataset.flip === "true") {
+          item.classList.toggle("flipped");
+          startBackgroundMusic();
+        }
+
+        if (item.dataset.audio === "true" && !dragStarted) {
+          playAudio();
+        }
+      }
+
+      item.addEventListener("pointerdown", startDrag);
+      item.addEventListener("pointermove", moveDrag);
+      item.addEventListener("pointerup", endDrag);
+      item.addEventListener("pointercancel", endDrag);
+    });
+  </script>
+<head>
+ <!-- Red Bobblehead Bunny - https://www.cursors-4u.com/cursor/red-bobblehead-bunny -->
+<link rel="stylesheet" href="https://cdn.cursors-4u.net/cursors/animated/red-bobblehead-bunny-8115c862-32.css">
+<!-- End www.Cursors-4U.com Code -->
+</head>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Draggable Image</title>
+    <link rel="stylesheet" href="draggable-image.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="panel">
+        <h1>Draggable Images</h1>
+        <p>Use the same drag code on any number of image cards.</p>
+      </section>
+
+      <div class="draggable-box draggable-card" style="top: 120px; left: 120px;" aria-label="Draggable image card">
+        <img src="jollibee.png" alt="Draggable image" draggable="false" />
+        <span>Drag me</span>
+      </div>
+
+      <div class="draggable-box draggable-card" style="top: 180px; left: 360px;" aria-label="Draggable image card 2">
+        <img src="1-removebg-preview.png" alt="Second draggable image" draggable="false" />
+        <span>Drag me too</span>
+      </div>
+
+      <div class="draggable-box draggable-card" style="top: 300px; left: 220px;" aria-label="Draggable image card 3">
+        <img src="2-removebg-preview.png" alt="Third draggable image" draggable="false" />
+        <span>And me</span>
+      </div>
+    </main>
+
+    <script>
+      const cards = document.querySelectorAll(".draggable-card");
+
+      cards.forEach((card) => {
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        card.addEventListener("pointerdown", (event) => {
+          isDragging = true;
+          const rect = card.getBoundingClientRect();
+          offsetX = event.clientX - rect.left;
+          offsetY = event.clientY - rect.top;
+          card.setPointerCapture(event.pointerId);
+        });
+
+        card.addEventListener("pointermove", (event) => {
+          if (!isDragging) return;
+
+          card.style.left = `${event.clientX - offsetX}px`;
+          card.style.top = `${event.clientY - offsetY}px`;
+        });
+
+        function stopDragging(event) {
+          if (!isDragging) return;
+          isDragging = false;
+          if (card.hasPointerCapture(event.pointerId)) {
+            card.releasePointerCapture(event.pointerId);
+          }
+        }
+
+        card.addEventListener("pointerup", stopDragging);
+        card.addEventListener("pointercancel", stopDragging);
+      });
+    </script>
+  </body>
+</html>
